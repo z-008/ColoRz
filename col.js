@@ -13,7 +13,7 @@ var hardBtn = document.querySelector("#hardBtn");
 colorDisplay.textContent = pickedcolor;
 easyBtn.addEventListener("click",function(){
 
-	 h1.style.background = "#232323";
+	 h1.style.background = "steelblue";
      easyBtn.classList.add("selected");
     hardBtn.classList.remove("selected");
     numSquares = 3;
@@ -39,7 +39,7 @@ easyBtn.addEventListener("click",function(){
 
 hardBtn.addEventListener("click",function(){
 
-	 h1.style.background = "#232323";
+	 h1.style.background = "steelblue";
 	hardBtn.classList.add("selected");
     easyBtn.classList.remove("selected");
 
@@ -77,9 +77,10 @@ for(var i =0; i<squares.length; i++)
 	squares[i].style.background = colors[i];
 }
 //changing h1 backgroung color to black again
-h1.style.background = "#232323";
+h1.style.background = "steelblue";
 //reset back the text of button to new colors
 resetButton.textContent = "New Colors";
+messageDisplay.textContent="";
 
 
 });
@@ -105,7 +106,7 @@ for(var i =0; i<squares.length; i++)
 	}
 	else
 	{
-		alert("WRONG!!");
+		// alert("WRONG!!");
 		this.style.background= "#232323";
 		messageDisplay.textContent="Try Again";
 	}
