@@ -1,94 +1,54 @@
 var numSquares = 6;
-var colors = generateRandomColors(numSquares);
+var colors = [];
+var pickedcolor;
 
 var squares = document.querySelectorAll(".square");
-var pickedcolor = pickColor();
 var colorDisplay= document.getElementById("colorDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1=document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
-var easyBtn = document.querySelector("#easyBtn");
-var hardBtn = document.querySelector("#hardBtn");
+var modeButtons = document.querySelectorAll(".mode");
 
-colorDisplay.textContent = pickedcolor;
-easyBtn.addEventListener("click",function(){
-
-	 h1.style.background = "steelblue";
-     easyBtn.classList.add("selected");
-    hardBtn.classList.remove("selected");
-    numSquares = 3;
-    colors = generateRandomColors(numSquares);
-    pickedcolor = pickColor();
-    colorDisplay.textContent = pickedcolor;
-
-   for(var i =0; i<squares.length; i++)
-    {
-    	if(colors[i])
-    	{
-    		 squares[i].style.background = colors[i];
-    	}
-    	else
-    	{
-    		squares[i].style.display = "none";
-    	}
-     
-    }
-
-
-	});
-
-hardBtn.addEventListener("click",function(){
-
-	 h1.style.background = "steelblue";
-	hardBtn.classList.add("selected");
-    easyBtn.classList.remove("selected");
-
-    numSquares = 6;
-    colors = generateRandomColors(numSquares);
-    pickedcolor = pickColor();
-    colorDisplay.textContent = pickedcolor;
-
-   for(var i =0; i<squares.length; i++)
-    {
-    
-    		 squares[i].style.background = colors[i];
-    	
-    	    squares[i].style.display = "block";
-    	
-     
-    }
-
-
-
-	});
-
-
-resetButton.addEventListener("click",function(){
-//generate all new colors
-colors = generateRandomColors(numSquares);
-//pick a new random color from array
-pickedcolor = pickColor();
-//change colorDisplay to match picked Color
-colorDisplay.textContent = pickedcolor;
-//change colors of squares
-for(var i =0; i<squares.length; i++)
+init();
+function init()
 {
+	
+  setUpModeButtons();
+  setUpSquares();
+  reset();
 
-	squares[i].style.background = colors[i];
 }
-//changing h1 backgroung color to black again
-h1.style.background = "steelblue";
-//reset back the text of button to new colors
-resetButton.textContent = "New Colors";
-messageDisplay.textContent="";
 
+function setUpModeButtons()
+{ 
+	//mode buttons event listener
+		for(var i=0;i<modeButtons.length;i++)
+	{
+		modeButtons[i].addEventListener("click",function(){
+			modeButtons[0].classList.remove("selected");
+			modeButtons[1].classList.remove("selected");
+			this.classList.add("selected");
 
-});
+			if(this.textContent==="Easy")
+			 {
+			 	numSquares = 3;
+			 }
+			 else
+			 {
+			 	numSquares = 6;
+			 }
+	        reset();
 
-for(var i =0; i<squares.length; i++)
+	   });
+	}
+}
+
+function setUpSquares()
+{
+	for(var i =0; i<squares.length; i++)
 {
 
-	//add initial colors to squares
+	
 	squares[i].style.background = colors[i];
 
 	//add click listeners to squares
@@ -115,6 +75,45 @@ for(var i =0; i<squares.length; i++)
 	
 });
 }
+}
+
+
+function reset()
+{
+   //generate all new colors
+colors = generateRandomColors(numSquares);
+//pick a new random color from array
+pickedcolor = pickColor();
+//change colorDisplay to match picked Color
+colorDisplay.textContent = pickedcolor;
+//change colors of squares
+for(var i =0; i<squares.length; i++)
+{
+
+	    	if(colors[i])
+    	{
+    		 squares[i].style.display = "block";
+    		 squares[i].style.background = colors[i];
+    	}
+    	else
+    	{
+    		squares[i].style.display = "none";
+    	}
+}
+//changing h1 backgroung color to black again
+h1.style.background = "steelblue";
+//reset back the text of button to new colors
+resetButton.textContent = "New Colors";
+messageDisplay.textContent="";
+
+}
+
+
+
+resetButton.addEventListener("click",function(){
+ reset();
+ });
+
 
 function changeColors(color){
 	//loop through all squares
@@ -156,10 +155,6 @@ function randomColor(){
 	var b = Math.floor(Math.random()*256);
 
 	return "rgb(" + r + ", " + g + ", " + b + ")";
-
-
-	
-
 
 }
 
